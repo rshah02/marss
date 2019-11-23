@@ -1,0 +1,467 @@
+
+ 
+.siteHeader {
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 800;
+  font-size: 14px;
+  color: #fff;
+  border-top: 2px solid #b92b27;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.2);
+}
+
+.siteHeader .headerLogo {
+  z-index: 1;
+  overflow: hidden;
+}
+.siteHeader .headerLogo a {
+  display: block;
+  width: 80px;
+  min-width: 80px;
+  height: 50px;
+  background-size: 80px 23px;
+  background-image: url(//qsf.fs.quoracdn.net/-3-images.logo.wordmark_default.svg-26-bfa6b94bc0d6af2e.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.bd {
+  position: absolute;
+  right: 3px;
+  top: 5px;
+  background-color: #b92b27;
+  color: #fff;
+  border-radius: 50%;
+}
+.headerInner {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.headerNav {
+  position: relative;
+  z-index: 1;
+  float: none;
+  display: table-cell;
+  padding: 0 8px;
+}
+
+.askQuestionButton {
+  margin-left: 8px;
+  min-width: 96px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  transition: opacity ease-in-out 100ms,
+    color ease-in-out 100ms background-color ease-in-out 100ms,
+    border-color ease-in-out 100ms;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px 0 rgba(200, 200, 200, 0.2);
+  display: inline-block;
+  font-weight: 500;
+  outline: 0;
+  padding: 3px 7px 4px 7px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #b92b27;
+  background: #b92b27;
+  color: #fff;
+}
+
+.selector {
+  font-size: 13px;
+  position: relative;
+}
+.lookupBarSelector {
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  vertical-align: middle;
+  position: static;
+}
+
+.selectorInputWrapper {
+  position: relative;
+  width: 100%;
+}
+.selectorInput .text {
+  min-height: 27px;
+  background: #fff;
+  outline: 0;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 1px rgba(200, 200, 200, 0.3);
+  -webkit-transition: border-color 0.2s;
+  transition: border-color 0.2s;
+  -webkit-transition: border-color 0.2s 180ms ease-in-out 0s;
+  -o-transition: border-color 0.2s 180ms ease-in-out 0s;
+  transition: border-color 0.2s 180ms ease-in-out 0s;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 15px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  display: block;
+  padding: 3px 8px;
+  border-radius: 2px;
+  max-height: 29px;
+  min-height: auto;
+  background-color: #f4f4f4;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  white-space: nowrap;
+  -ms-overflow-style: none;
+  height: inherit;
+  border-right: 0;
+  border-top-right-radius: 0;
+}
+.selectorInput {
+  margin: 15px 5px 5px 5px;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  padding-left: 26px;
+  background: url(//qsf.fs.quoracdn.net/-3-images.new_grid.QuoraSearch.png-26-86c32b1ac26e4161.png)
+    no-repeat 8px center;
+  background-size: 13px;
+  position: relative;
+  width: 200px;
+  height: 25px; 
+ }
+
+#searchbar {
+  
+  display: inline;
+  margin-right: 10px;
+  border: 1px solid #e2e2e2;
+  border-left: 1px white;
+  height: 35px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.searchform {
+  padding: 10px 5px !important;
+
+}
+
+#searchicon {
+  display: inline;
+  background: white;
+  border: 1px solid #e2e2e2;
+  height: 35px;
+}
+
+.siteHeader .headerNav > span {
+  display: table-cell;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.sideHeaderNavItem {
+  position: relative;
+  float: left;
+}
+
+.navItemLink {
+  border-bottom: 2px solid transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  line-height: 50px;
+  padding: 0 14px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.ui-icon {
+  display: inline-block;
+  line-height: 0;
+  vertical-align: text-bottom;
+}
+
+.ui-icon-size-regular i {
+  width: 24px;
+  height: 24px;
+}
+
+.photoWrapper {
+  margin: 0;
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+}
+.u-flex {
+  display: flex !important;
+}
+.profileImage {
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  display: inline-block;
+}
+
+a:hover {
+  text-decoration-line: none;
+  text-decoration: none;
+}
+ .siteHeader {
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 800;
+  font-size: 14px;
+  color: #fff;
+  border-top: 2px solid #b92b27;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.2);
+}
+
+.siteHeader .headerLogo {
+  z-index: 1;
+  overflow: hidden;
+}
+.siteHeader .headerLogo a {
+  display: block;
+  width: 80px;
+  min-width: 80px;
+  height: 50px;
+  background-size: 80px 23px;
+  background-image: url(//qsf.fs.quoracdn.net/-3-images.logo.wordmark_default.svg-26-bfa6b94bc0d6af2e.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.headerInner {
+  box-sizing: border-box;
+  position: relative;
+  width: 1002px;
+
+  margin: 0 auto;
+}
+
+.headerNav {
+  position: relative;
+  z-index: 1;
+  float: none;
+  display: table-cell;
+  padding: 0 8px;
+}
+
+.askQuestionButton {
+  margin-left: 8px;
+  min-width: 96px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  transition: opacity ease-in-out 100ms, color ease-in-out 100ms,
+    background-color ease-in-out 100ms, border-color ease-in-out 100ms;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px 0 rgba(200, 200, 200, 0.2);
+  display: inline-block;
+  font-weight: 500;
+  outline: 0;
+  padding: 3px 7px 4px 7px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #b92b27;
+  background: #b92b27;
+  color: #fff;
+}
+
+.selector {
+  font-size: 13px;
+  position: relative;
+}
+.lookupBarSelector {
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  vertical-align: middle;
+  position: static;
+}
+
+.selectorInputWrapper {
+  position: relative;
+  width: 100%;
+}
+.selectorInput .text {
+  min-height: 27px;
+  background: #fff;
+  outline: 0;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 1px rgba(200, 200, 200, 0.3);
+  -webkit-transition: border-color 0.2s;
+  transition: border-color 0.2s;
+  -webkit-transition: border-color 0.2s 180ms ease-in-out 0s;
+  -o-transition: border-color 0.2s 180ms ease-in-out 0s;
+  transition: border-color 0.2s 180ms ease-in-out 0s;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 15px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  display: block;
+  padding: 3px 8px;
+  border-radius: 2px;
+  max-height: 29px;
+  min-height: auto;
+  background-color: #f4f4f4;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  white-space: nowrap;
+  -ms-overflow-style: none;
+  height: inherit;
+  border-right: 0;
+  border-top-right-radius: 0;
+}
+.selectorInput {
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  padding-left: 26px;
+  background: url(//qsf.fs.quoracdn.net/-3-images.new_grid.QuoraSearch.png-26-86c32b1ac26e4161.png)
+    no-repeat 8px center;
+  background-size: 13px;
+  position: relative;
+  width: 100%;
+}
+.siteHeader .headerNav > span {
+  display: table-cell;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.sideHeaderNavItem {
+  position: relative;
+  float: left;
+}
+
+.navItemLink {
+  border-bottom: 2px solid transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  line-height: 50px;
+  padding: 0 14px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.ui-icon {
+  display: inline-block;
+  line-height: 0;
+  vertical-align: text-bottom;
+}
+
+.ui-icon-size-regular i {
+  width: 24px;
+  height: 24px;
+}
+
+.photoWrapper {
+  margin: 0;
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+}
+.u-flex {
+  display: flex !important;
+}
+.profileImage {
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  display: inline-block;
+}
+.profilephotodropdown {
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 20px;
+}
+.navbardropdown ul {
+  position: relative;
+  border-top: 0;
+  padding: 8px 16px;
+  line-height: 1.25;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 0;
+  height: 0;
+  border-color: rgba(204, 204, 204, 0);
+  border-left: 7.5px solid transparent;
+  border-right: 7.5px solid transparent;
+  border-bottom: 7px solid rgba(0, 0, 0, 0);
+  margin-left: -7px;
+}
+.navbardropdown a {
+  text-decoration: none;
+  color: #2b6dad;
+  background: transparent;
+  cursor: pointer;
+}
+#searchbar:focus {
+  outline: 0 none !important;
+  outline-color: #e2e2e2 !important;
+}
+
+.leftnav{
+    
+    float: right;
+    padding-top: 10px;
+}
+
+.hover-menu{
+    float: right;
+}
