@@ -114,7 +114,7 @@ class PropertyDisplay extends Component {
             "EMail" : "rohanshah739651@gmail.com"
         }
         var data = {
-            UserId:localStorage.getItem(UserId),
+           // UserId:localStorage.getItem(UserId),
             Title:this.state.Title,
             CheckInDate: this.state.StartDate,
             CheckOutDate: this.sate.EndDate,

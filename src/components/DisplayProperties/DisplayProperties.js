@@ -204,7 +204,7 @@ class DisplayProperties extends Component {
                     <Link to={'/property-display/' + property.PropertyId}>
                         <div className="property-content row border">
                             <div className="property-content-image col-3">
-                                <img className="property-image" src={require('../../Static/Images/property.Image')}/>
+                                <img className="property-image"/>
                             </div>
                             <div className="property-content-desc col-9 hidden-xs">
                                 <div>
