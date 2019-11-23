@@ -18,7 +18,7 @@ class TravelerInbox extends Component {
     componentWillMount() {
 
         var token = localStorage.getItem("token");
-        axios.defaults.withCredentials = true;
+        // axios.defaults.withCredentials = true;
         var data = {
 
 

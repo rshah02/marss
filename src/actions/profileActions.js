@@ -9,7 +9,7 @@ export function getProfileDetails() {
     return async function (dispatch) {
 
         console.log('Inside Get Profile Details');
-        axios.defaults.withCredentials = true;
+        // axios.defaults.withCredentials = true;
         
         var ProfileImage = "";
         var result = {
@@ -18,37 +18,45 @@ export function getProfileDetails() {
         }
         var token = localStorage.getItem("token");
         var errorRedirect = false;
-
-        await axios.get('http://'+rooturl+':3001/profile-details', {
-            headers: {"Authorization" : `Bearer ${token}`}
-        })
-            .then((response) => {
-                result.data = response.data;
-                ProfileImage = response.data.ProfileImage;
-            })
-            .catch((err)=>{
-                errorRedirect = true;
-                dispatch({
-                    type: GET_PROFILE_DETAILS_FAILURE,
-                    payload: errorRedirect
-                }); 
+        var UserId=localStorage.getItem("UserId")
+        // await axios.get('http://54.85.105.69:3000/profile/'+UserId)
+        //     .then((response) => {
+        //         console.log(response.data)
+        //         result.data = response.data;
+        //         ProfileImage = response.data.ProfileImage;
+        //     })
+        //     .catch((err)=>{
+        //         errorRedirect = true;
+        //         dispatch({
+        //             type: GET_PROFILE_DETAILS_FAILURE,
+        //             payload: errorRedirect
+        //         }); 
                  
-            });
-        console.log('ProfileImage', ProfileImage);
-        await axios.post('http://'+rooturl+':3001/download-file/' + ProfileImage , {
-            headers: {"Authorization" : `Bearer ${token}`}
-        })
-            .then(response => {
-                result.imageData = 'data:image/jpg;base64, ' + response.data;
+        //     });
 
-            }).catch((err)=>{
-                errorRedirect = true;
-                dispatch({
-                    type: GET_PROFILE_DETAILS_FAILURE,
-                    payload: errorRedirect
-                }); 
+
+
+
+
+
+
+
+
+        // console.log('ProfileImage', ProfileImage);
+        // await axios.post('http://'+rooturl+':3001/download-file/' + ProfileImage , {
+        //     headers: {"Authorization" : `Bearer ${token}`}
+        // })
+        //     .then(response => {
+        //         result.imageData = 'data:image/jpg;base64, ' + response.data;
+
+        //     }).catch((err)=>{
+        //         errorRedirect = true;
+        //         dispatch({
+        //             type: GET_PROFILE_DETAILS_FAILURE,
+        //             payload: errorRedirect
+        //         }); 
                  
-            });
+        //     });
         
         
         dispatch({
@@ -65,7 +73,7 @@ export function updateProfileDetails(data){
         console.log('Inside Update Profile Details');
         var token = localStorage.getItem("token");
         // axios.defaults.withCredentials = true;
-        axios.post('http://54.85.105.69:3000/profile', data)
+        axios.post('https://sjgt1h8u4g.execute-api.us-east-1.amazonaws.com/prod/profile', data)
             .then(response => {
                 if (response.status === 200) {
                     console.log(response.data);

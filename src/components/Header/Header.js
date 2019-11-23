@@ -16,8 +16,10 @@ class Header extends Component {
     }
 
     handleLogout = () => {
-
-        axios.defaults.withCredentials = true;
+      localStorage.removeItem("Token")
+      localStorage.setItem("isAuthenticated",false)
+      localStorage.removeItem("UserId")
+        // axios.defaults.withCredentials = true;
         axios.post('http://'+rooturl+':3001/logout')
             .then(response => {
                 if (response.status === 200) {
@@ -119,7 +121,7 @@ class Header extends Component {
                 
                 <div className="col-3 leftnav">
                 <span><Link to="/add-property" id="edit1">Add Listing</Link></span>
-                
+                <span><Link to="/my-trips">My Trips</Link></span>
                   <div className="hover-menu">
                     <div className="hover-menu-contents">
                      
@@ -155,7 +157,7 @@ class Header extends Component {
                                    
                                     className="list-group-item list-group-item-action list-group-item-light"
                                   >
-                                    Logout
+                                    My properties
                                   </Link>
                                 </li>
                                 <li>

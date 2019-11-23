@@ -16,29 +16,31 @@ class AddProperty extends Component {
         super(props);
 
         this.state = {
+            isAuthenticated:localStorage.getItem("isAuthenticated"),
+            Email:localStorage.getItem("Email"),
             locationActive: true,
             detailsActive: false,
             photosActive: false,
             pricingActive: false,
-            country: "",
-            streetAddress: "",
-            city: "",
-           
-            zipCode: "",
-            Tile: "",
-            description: "",
-            propertyType: "",
-            bedrooms: "",
-            accomodates: "",
-            bathrooms: "",
-            Image: "",
+            Country: "",
+            StreetAddr: "",
+            City: "",
+           UserId:localStorage.getItem("UserId"),
+            ZipCode: "",
+            Title: "",
+            Description: "",
+            PropertyType: "",
+            Bedrooms: "",
+            Accomodates: "",
+            Bathrooms: "",
+            Image: "download3.jpeg",
             //photoThumbnail: [],
             StartDate: moment(),
             EndDate: moment(),
             Currency: "",
             Price: "",
-            minStay: "",
-            maxStay:"",
+            MinStay: "",
+            MaxStay:"",
             Amenities:"",
             Spaces:"",
             locationError: false,
@@ -81,7 +83,7 @@ class AddProperty extends Component {
 
     handleDetailsClick = () => {
 
-        const validator = this.state.country === "" || this.state.streetAddress === "" || this.state.city === "" ||this.state.zipCode === "";
+        const validator = this.state.Country === "" || this.state.StreetAddr === "" || this.state.City === "" ||this.state.ZipCode === "";
 
         console.log(validator);
         if (validator) {
@@ -177,7 +179,7 @@ class AddProperty extends Component {
 
     submitPropertyDetails = (e) => {
 
-        var validator = this.state.Price === "" || this.state.minStay === "";
+        var validator = this.state.Price === "" || this.state.MinStay === "";
 
 
         if (validator) {
@@ -186,90 +188,48 @@ class AddProperty extends Component {
             })
         }
         else {
-
-            e.preventDefault();
-
-            var data1={
-                "prpoertyId":"121324244",
-                "username": "Apeksha",
-                "userid": "1234567",
-                "title": "New opening coming soon, yaaaaaayayayaayayya aaaaaaaaaaaaaaaaaaaaaaaaaaaas",
-                "description": "OPEN",
-                "street": "630 N San Pedro Street 100 1245555555",
-                "city": "San Jose",
-                "country": "USA",
-                "zip": "12345",
-                "bed": 22,
-                "bath": 2,
-                "accomodates": 4,
-                "currency": "$",
-                "price": 1000,
-                "minstay": 2,
-                "maxstay": 4,
-                "start": "9-20-2019",
-                "end": "9-22-2019",
-                "ptype": {
-                    "pbed": false,
-                    "whole": true,
-                    "shared": false
-                },
-                "amenities": {
-                    "ac": false,
-                    "heater": false,
-                    "tv": false,
-                    "wifi": true
-                },
-                "spaces": {
-                    "kitchen": false,
-                    "closets": false,
-                    "parking": false,
-                    "gym": false,
-                    "pool": false
-                },
-                "Image": "download4.jpeg"
-            }
-    
-            
-           
-               
-            
-            
-
-            const data = {
-                country: this.state.country,
-                streetAddress: this.state.streetAddress,
-                city: this.state.city,
-                zipCode: this.state.zipCode,
-                Title: this.state.Tile,
-                description: this.state.description,
-                propertyType: this.state.propertyType,
-                bedrooms: this.state.bedrooms,
-                accomodates: this.state.accomodates,
-                bathrooms: this.state.bathrooms,
+            e.preventDefault(); 
+            const data1 = {
+                UserId:this.state.UserId,
+                Username:this.state.Email,
+                Country: this.state.Country,
+                StreetAddr: this.state.StreetAddr,
+                City: this.state.City,
+                ZipCode: this.state.ZipCode,
+                Title: this.state.Title,
+                Description: this.state.Description,
+                // PropertyType: this.state.propertyType,
+                Bedrooms: this.state.Bedroonms,
+                Accomodates: this.state.Accomodates,
+                Bathrooms: this.state.Bathrooms,
                 StartDate: this.state.StartDate,
                 EndDate: this.state.EndDate,
-                Currency: this.state.Currency,
+                Currency: "USD",
                 Price: this.state.Price,
-                minStay: this.state.minStay,
-                Image: this.state.Image
+                MinStay: this.state.MinStay,
+                PropertyType: {
+                    "PrivateBed": false,
+                    "Whole": true,
+                    "Shared": false
+                },
+                Amenities: {
+                    "Ac": false,
+                    "Heater": false,
+                    "TV": false,
+                    "Wifi": true
+                },
+                "Spaces": {
+                    "Kitchen": false,
+                    "Closets": false,
+                    "Parking": false,
+                    "Gym": false,
+                    "Pool": false
+                },
+                Image:this.state.Image
             }
-
-            // var token = localStorage.getItem("token");
-            //  axios.defaults.withCredentials = true;
-            // axios.post('http://54.152.110.9:8080/property/addProperty', data1)
-            //     .then(response => {
-
-            //         if (response.status === 200) {
-            //             console.log('Success!');
-            //             this.setState({
-            //                 propertyInsertComplete: true,
-            //                 pricingError: false
-            //             })
-            //         }
-            //     })
-            
-            // axios.defaults.withCredentials = true;
-        axios.post('http://54.152.110.9:8080/property/addProperty',data1)
+console.log(data1)
+          
+        axios.post('https://33sf4cmc8a.execute-api.us-east-1.amazonaws.com/prod/property/addProperty',data1)
         .then(response => {
              console.log(response.data);
              this.setState({
@@ -278,7 +238,8 @@ class AddProperty extends Component {
     }).catch((err) =>{
                     if(err){
                         this.setState({
-                            errorRedirect: true
+                            errorRedirect: true,
+                            propertyInsertComplete: false,
                         })
                     }
                 });
@@ -389,18 +350,18 @@ class AddProperty extends Component {
                                             <p>Fill in the location details of your property</p>
                                         </div>
                                         <div className="form-group">
-                                            <input type="text" name="country" id="country" className="form-control form-control-lg" placeholder="Country" onChange={this.handleInputChange} />
+                                            <input type="text" name="Country" id="country" className="form-control form-control-lg" placeholder="Country" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <input type="text" name="streetAddress" id="streetAddress" className="form-control form-control-lg" placeholder="Street Address" onChange={this.handleInputChange} />
+                                            <input type="text" name="StreetAddr" id="streetAddress" className="form-control form-control-lg" placeholder="Street Address" onChange={this.handleInputChange} />
                                         </div>
                                         
                                         <div className="form-group">
-                                            <input type="text" name="city" id="city" className="form-control form-control-lg" placeholder="City" onChange={this.handleInputChange} />
+                                            <input type="text" name="City" id="city" className="form-control form-control-lg" placeholder="City" onChange={this.handleInputChange} />
                                         </div>
                                       
                                         <div className="form-group">
-                                            <input type="text" name="zipCode" id="zipCode" className="form-control form-control-lg" placeholder="Zip Code" onChange={this.handleInputChange} />
+                                            <input type="text" name="ZipCode" id="zipCode" className="form-control form-control-lg" placeholder="Zip Code" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group location-form-btn flt-right">
                                             <button className="btn btn-primary btn-lg btn-p" onClick={this.handleDetailsClick}>Next</button>
@@ -423,19 +384,19 @@ class AddProperty extends Component {
                                             <input type="text" name="Title" id="headline" className="form-control form-control-lg" placeholder="Title" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <textarea type="text" name="description" id="description" className="form-control form-control-lg" placeholder="Description" onChange={this.handleInputChange} />
+                                            <textarea type="text" name="Description" id="description" className="form-control form-control-lg" placeholder="Description" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <input type="text" name="propertyType" id="propertyType" className="form-control form-control-lg" placeholder="Property Type" onChange={this.handleInputChange} />
+                                            <input type="text" name="PropertyType" id="propertyType" className="form-control form-control-lg" placeholder="Property Type" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <input type="number" name="bedrooms" id="bedrooms" className="form-control form-control-lg" placeholder="Bedrooms" onChange={this.handleInputChange} />
+                                            <input type="text" name="Bedrooms" id="bedrooms" className="form-control form-control-lg" placeholder="Bedrooms" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <input type="number" name="accomodates" id="accomodates" className="form-control form-control-lg" placeholder="Accomodates" onChange={this.handleInputChange} />
+                                            <input type="text" name="Accomodates" id="accomodates" className="form-control form-control-lg" placeholder="Accomodates" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group">
-                                            <input type="number" name="bathrooms" id="bathrooms" className="form-control form-control-lg" placeholder="Bathrooms" onChange={this.handleInputChange} />
+                                            <input type="text" name="Bathrooms" id="bathrooms" className="form-control form-control-lg" placeholder="Bathrooms" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group details-form-btn flt-right">
                                             <button className="btn btn-primary btn-lg btn-p" onClick={this.handlePhotosClick}>Next</button>
@@ -506,7 +467,7 @@ class AddProperty extends Component {
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="minStay">Minimum Stay (nights)</label>
-                                            <input type="text" name="minStay" id="minStay" className="form-control form-control-lg" onChange={this.handleInputChange} />
+                                            <input type="text" name="MinStay" id="minStay" className="form-control form-control-lg" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="form-group flt-right">
                                             <button className="btn btn-primary btn-lg btn-p" onClick={this.submitPropertyDetails}>Submit</button>

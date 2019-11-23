@@ -23,7 +23,7 @@ class OwnerInbox extends Component {
     componentWillMount() {
 
         var token = localStorage.getItem("token");
-        axios.defaults.withCredentials = true;
+        // axios.defaults.withCredentials = true;
         var data = {
 
 
@@ -70,7 +70,7 @@ class OwnerInbox extends Component {
                 var propertyId = event.target.value;
                 //console.log('Inside Send Message ', this.state.messageContent);
                 var token = localStorage.getItem("token");
-                axios.defaults.withCredentials = true;
+                // axios.defaults.withCredentials = true;
                 console.log(event.target);
                 const target = event.target;
                 const messageid = target.name;

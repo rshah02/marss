@@ -1,3 +1,4 @@
+ import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import axios from 'axios';
 import cookie from 'react-cookies';
@@ -17,12 +18,13 @@ class Login extends Component {
         super();
 
         this.state = {
+            
             Email: "",
             Password: "",
             formValidationFailure: false,
             isValidationFailure: true,
-            errorRedirect: false
-
+            errorRedirect: false,
+            isAuthenticated:localStorage.getItem("isAuthenticated")
         }
 
 
@@ -56,13 +58,53 @@ class Login extends Component {
 
     //
     onSubmit(values) {
-       axios.defaults.withCredentials = true;
+    
         var data = {
             Email: values.email,
             Password: values.password
         }
+        var firebaseConfig = {
+            apiKey: "AIzaSyDGmFFot0TKg5AUG6PWLgv5aMTTBgt4--k",
+            authDomain: "airbnb-clone-b0eeb.firebaseapp.com",
+            databaseURL: "https://airbnb-clone-b0eeb.firebaseio.com",
+            projectId: "airbnb-clone-b0eeb",
+            storageBucket: "airbnb-clone-b0eeb.appspot.com",
+            messagingSenderId: "472092600440",
+            appId: "1:472092600440:web:b4dd9ab3452ee60107a58d"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
 
-        this.props.submitLogin(data);
+
+        // this.props.submitLogin(data);
+        axios.post('http://ec2-18-236-158-50.us-west-2.compute.amazonaws.com:3000/users/login', data)
+            .then(response => {
+                console.log(response);
+                if (response.status === 200) {                 
+                firebase.auth().signInWithCustomeToken(response.data.Token)
+                .then(data=>{console.log("done")})
+                    localStorage.setItem("token", response.data.Token);
+                    localStorage.setItem("UserId",response.data.UserId);
+                    localStorage.setItem("Email",response.data.Email);
+                    localStorage.setItem("FirstName",response.data.FirstName);
+                    localStorage.setItem("LastName",response.data.LastName);
+                    localStorage.setItem("isAuthenticated",true)
+                   this.props.history.push("/home")
+                }                               
+            })
+            .catch((err) => {
+                if (err) {
+                   
+                    var resultData = {
+                        isAuthenticated : false
+                    }
+                       console.log(err);
+                        console.log('inside res status 401', err);
+                                              
+                   
+                }
+
+            });
     }
 
     render() {

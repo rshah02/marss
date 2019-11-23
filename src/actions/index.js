@@ -9,17 +9,12 @@ export const AUTH_LOGIN_USER_PRESENT = "AUTH_LOGIN_USER_PRESENT";
 export function submitLogin(data) {
     return function (dispatch) {
         console.log('Inside Action');
-        axios.defaults.withCredentials = true;
-        axios.post('http://'+rooturl+':3001/login', data)
+        // axios.defaults.withCredentials = true;
+        axios.post('http://ec2-18-236-158-50.us-west-2.compute.amazonaws.com:3000/users/login', data)
             .then(response => {
                 console.log(response);
                 if (response.status === 200) {
-                    localStorage.setItem("token", response.data.Token);
-                    localStorage.setItem("UserId",response.data.UserId);
-                    localStorage.setItem("Email",response.data.Email);
-                    localStorage.setItem("FirstName",response.data.FirstName);
-                    localStorage.setItem("LastName",response.data.LastName);
-                    localStorage.setItem("isAuthenticated",true)
+                    
                     var resultData = {
                         FirstName : response.data.FirstName,
                         Accounttype : response.data.Accounttype,
@@ -29,11 +24,18 @@ export function submitLogin(data) {
                         isAuthenticated : true
                     }
                     console.log('Result in action: ', resultData)
+                    
+
                     dispatch({
                         type: AUTH_LOGIN,
                         payload: resultData
                     });
-
+                    localStorage.setItem("token", response.data.Token);
+                    localStorage.setItem("UserId",response.data.UserId);
+                    localStorage.setItem("Email",response.data.Email);
+                    localStorage.setItem("FirstName",response.data.FirstName);
+                    localStorage.setItem("LastName",response.data.LastName);
+                    localStorage.setItem("isAuthenticated",true)
                 }                               
             })
             .catch((err) => {
@@ -60,7 +62,7 @@ export function submitLogin(data) {
 
 export function signup(data) {
     return function (dispatch) {
-        console.log('Inside Signup');
+        console.log(data);
         //  
         axios.post('http://ec2-18-236-158-50.us-west-2.compute.amazonaws.com:3000/users/signup', data)
             .then(response => {

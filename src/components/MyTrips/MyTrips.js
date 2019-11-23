@@ -11,6 +11,7 @@ class MyTrips extends Component {
     constructor() {
         super();
         this.state = {
+            isAuthenticated:localStorage.getItem("isAuthenticated"),
             trips: [],
             tripDetails: [],
             errorRedirect: false,
@@ -19,17 +20,19 @@ class MyTrips extends Component {
             pagesPerPage : 5,
             ownerDashBoardTrips: []
         }
-
+       
         //bind
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handlePagination = this.handlePagination.bind(this);
+        this.enroll = this.enroll.bind(this);
     }
 
     componentWillMount() {
        
         // var token = localStorage.getItem("token");
         // axios.defaults.withCredentials = true;
-        axios.get('http://35.237.234.3:3000/booking')
+        var UserId=localStorage.getItem('UserId')
+        axios.get('https://4me1h75jea.execute-api.us-west-2.amazonaws.com/prod/user/ABC/bookings')
             .then(response => {
                 if (response.status === 200) {
                     console.log("Response : ", response.data);
@@ -56,6 +59,20 @@ class MyTrips extends Component {
             });
 
     }
+
+    enroll(id, e) {
+        e.preventDefault();
+        console.log(e.target.value);
+        const Token = localStorage.getItem("jwtToken");
+        let course = { courseId: id };
+        console.log(course);
+        axios.post(window.base_url + "/enrollment", course, {
+          headers: { Authorization: Token }
+        }).then(response => {
+          console.log(response.data);
+          this.props.history.push("/AllCourses");
+        });
+      }
 
     handleSearchChange = (event) => {
 
@@ -173,6 +190,25 @@ class MyTrips extends Component {
                         <div className="pricing-content">
                             <h3><strong>Total Cost: ${trip.Amount}</strong></h3>
                         </div>
+                        <div className="pagination-container center-content">
+                        <span className="col-lg-2 col-md-3 col-sm-12 col-xs-12 pad-bot-10">
+                        {/* <form
+                          name="abc"
+                          value={trip.BookingID}
+                          onSubmit={this.enroll.bind(this,trip.BookingID)}
+                        >
+                          <button
+                            className="btn btn-primary as-btn"
+                            type="submit"
+                            value="submit"
+                          >
+                            Enroll
+                          </button>
+                        </form> */}
+                            {/* <button className="btn btn-primary btn-lg btn-p" id="prev" onClick={this.handleDelete(trip.BookingId)}>Delete Booking</button> */}
+                        </span>
+                                              
+                    </div>
                     </div>
                 </div>
             )

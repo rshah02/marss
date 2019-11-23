@@ -18,7 +18,7 @@ export function photoHandler(photos){
         }
 
         var token = localStorage.getItem("token");
-        axios.defaults.withCredentials = true;
+        
         await axios.post('http://'+rooturl+':3001/upload-file', data, {
             headers: {"Authorization" : `Bearer ${token}`}
         })
@@ -42,7 +42,7 @@ export function photoHandler(photos){
                 }
             });
 
-            axios.defaults.withCredentials = true;
+            
             var imagePreviewArr = [];
             for (var i = 0; i < photos.length; i++) {
                 await axios.post('http://'+rooturl+':3001/download-file/' + photos[i].name, {

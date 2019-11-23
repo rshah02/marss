@@ -15,6 +15,7 @@ class PropertyDisplay extends Component {
         super(props);
 
         this.state = {
+            isAuthenticated:localStorage.getItem("isAuthenticated"),
             arrivalDate: moment(),
             departureDate: moment(),
             propertyDetails: {},
@@ -25,7 +26,26 @@ class PropertyDisplay extends Component {
             totalCost: 0,
             errorRedirect: false,
             redirectToHome: false,
-            messageContent: ""
+            messageContent: "",
+            Accomodates:"",
+                        Bathrooms:"",
+                        Bedrooms:"",
+                        City:"",
+                        Country:"",
+                        Currency:"",
+                        Description:"",
+                        EndDate:"",
+                        Image:"",
+                        MaxStay:"",
+                        MinStay:"",
+                        Price:"",
+                        PropertyId:"",
+                        StartDate:"",
+                        StreetAddr:"",
+                        Title:"",
+                        UserId:"",
+                        Username:"",
+                        ZipCode: "",
         }
 
         //Bind
@@ -36,65 +56,34 @@ class PropertyDisplay extends Component {
         
     }
 
-    componentDidMount() {
-        var token = localStorage.getItem("token");
-        //axios.defaults.withCredentials = true;
-
-        var data = {
-            PropertyId: this.props.match.params.id
-        }
-
-
-        var data1=  { "Accomodates": 50,
-        "Amenities": {
-            "Ac": true,
-            "Heater": true,
-            "TV": true,
-            "Wifi": true
-        },
-        "Bathrooms": 1,
-        "Bedrooms": 0,
-        "City": "San Jose",
-        "Country": "USA",
-        "Currency": "$",
-        "Description": "OPEN",
-        "EndDate": "19-9-2019",
-        "MaxStay": 4,
-        "MinStay": 2,
-        "Price": 1000,
-        "PropertyType": {
-            "PrivateBed": false,
-            "Shared": false,
-            "Whole": false
-        },
-        "Spaces": {
-            "Closets": false,
-            "Gym": false,
-            "Kitchen": false,
-            "Parking": false,
-            "Pool": false
-        },
-        "StartDate": "24-9-2019",
-        "StreetAddr": "4388999",
-        "Title": "New opening coming soon, yaaaaaayayayaayayya aaaaaaaaaaaaaaaaaaaaaaaaaaaas",
-        "UserId": "1234567",
-        "Username": "APeksha",
-        "ZipCode": "95050",
-        "image": "download4.jpeg"
-    }
-        //console.log('Data: ', data);
-        // let headers = {
-        //     'Content-Type': 'application/json',
-        //     'Access-Control-Allow-Origin': '*',
-        //   };
-        axios.delete('http://DOCKERNLB-8a89fb4c38cb6609.elb.us-west-2.amazonaws.com:3000/ABC/myBookings/remove/b9343c8f-4b93-4ecc-401b-5b40703ad957')
+    async componentDidMount() {
+                var  PropertyId= this.props.match.params.id
+       await axios.get('https://33sf4cmc8a.execute-api.us-east-1.amazonaws.com/prod/property/088b459f-d7bb-433c-43fe-df1823ccf293')
             .then(response => {
                 if (response.status === 200) {
                     console.log('Result: ', response.data);
          
                     this.setState({
-                        // propertyDetails: response.data[0]
-                        PropertyDetails:response.data
+                        
+                        Accomodates:response.data.Accomodates,
+                        Bathrooms:response.data.Bathrooms,
+                        Bedrooms:response.data.Bedrooms,
+                        City:response.data.City,
+                        Country:response.data.Country,
+                        Currency:response.data.Currency,
+                        Description:response.data.Description,
+                        EndDate:response.data.EndDate,
+                        Image:response.data.Image,
+                        MaxStay:response.data.MaxStay,
+                        MinStay:response.data.MinStay,
+                        Price:response.data.Price,
+                        PropertyId:response.data.PropertyId,
+                        StartDate:response.data.StartDate,
+                        StreetAddr:response.data.StreetAddr,
+                        Title:response.data.Title,
+                        UserId:response.data.UserId,
+                        Username:response.data.Username,
+                        ZipCode: "95050",
                     });
 
                    
@@ -112,7 +101,7 @@ class PropertyDisplay extends Component {
 
     submitBooking = (e) => {
 
-        axios.defaults.withCredentials = true;
+        // axios.defaults.withCredentials = true;
         var token = localStorage.getItem("token");
         var data= {
             "UserId" : "657890",
@@ -125,21 +114,19 @@ class PropertyDisplay extends Component {
             "EMail" : "rohanshah739651@gmail.com"
         }
         var data = {
-            //UserId:localStorage.getItem(UserId),
-            Title:this.props.homeStateStore.result.Title,
-            CheckInDate: this.props.homeStateStore.result.startDate,
-            CheckOutDate: this.props.homeStateStore.result.endDate,
-            Guests: this.props.homeStateStore.result.guests,
-            Price: e.target.value,
-            Message:this.state.PropertyDetails.Message,
-            EMail: this.state.propertyDetails.Ownername,
-            PropertyDetails: this.state.propertyDetails
+            UserId:localStorage.getItem(UserId),
+            Title:this.state.Title,
+            CheckInDate: this.state.StartDate,
+            CheckOutDate: this.sate.EndDate,
+            Guests: this.state.Accomodates,
+            Amount: e.target.value,
+            Message:this.state.Message,
+            EMail: localStorage.getItem("Email"),
+            PropertyID:this.state.PropertyId
         }
 
 
-        axios.post('http://'+rooturl+':3001/submit-booking', data, {
-            headers: { "Authorization": `Bearer ${token}` }
-        })
+        axios.post('https://4me1h75jea.execute-api.us-west-2.amazonaws.com/prod/property/book', data)
             .then(response => {
                 if (response.status === 200) {
                     console.log('Booking Successful!');
@@ -214,8 +201,8 @@ class PropertyDisplay extends Component {
         }
 
         var totalCost = 0;
-
-        if (this.state.propertyDetails.Price && this.props.homeStateStore.result) {
+           
+        if (this.state.state.Price) {
 
 
             const startDate = moment(this.props.homeStateStore.result.startDate);
@@ -223,43 +210,28 @@ class PropertyDisplay extends Component {
             const diff = timeEnd.diff(startDate);
             const diffDuration = moment.duration(diff);
             console.log('diffduration', diffDuration);
-            totalCost = (diffDuration._data.days + 1) * this.state.propertyDetails.Baserate.substring(1);
+            totalCost = (diffDuration._data.days + 1) * this.state.Price.substring(1);
         }
 
-        let carousalBlock = this.state.photos.map(function (item, index) {
 
-            return (
-                <div className={index == 0 ? "carousel-item active" : "carousel-item"} key={index}>
-                    <img className=" carousel-img property-display-img" src={item} alt="property-image" />
-                </div>
-            )
-        });
 
-        let carousalIndicator = this.state.photos.map(function (item, index) {
-
-            return (
-                <li data-target="#myCarousel" data-slide-to={index} className={index == 0 ? "active" : ""} key={index}></li>
-            )
-        });
-
-        //var startDate = this.state.propertyDetails.AvailabilityStartDate;
-        var startDate = "";
-        var endDate = "";
-        if (this.props.homeStateStore.result) {
-            var date = new Date(this.props.homeStateStore.result.startDate);
+        var StartDate = this.state.StartDate;
+        
+        var EndDate = "";
+       
+            var date = new Date(this.state.StartDate);
             var locale = "en-us";
             var month = date.toLocaleString(locale, { month: "short" });
             var day = date.getDate();
-            startDate = month + " - " + day;
-            console.log(startDate);
+            StartDate = month + " - " + day;
+            
 
             //End date
-            date = new Date(this.props.homeStateStore.result.endDate);
+            date = new Date(this.state.EndDate);
             month = date.toLocaleString(locale, { month: "short" });
             day = date.getDate();
-            endDate = month + " - " + day;
-            console.log(endDate);
-        }
+            EndDate = month + " - " + day;
+            
 
 
         return (
@@ -267,58 +239,25 @@ class PropertyDisplay extends Component {
                 <Header />
                 {redrirectVar}
                 <div className="form-group row search-tab container search-tab-display-property">
-
-                    <span className="col-lg-4 col-md-12 col-sm-12 col-xs-12 pad-bot-10">
-                        <input type="textbox" className="form-control form-control-lg" placeholder="Search"></input>
-                    </span>
-                    <span className="col-lg-2 col-md-3 col-sm-4 col-xs-4 pad-bot-10">
-                        <DatePicker className="form-control form-control-lg" dateFormat="MM/DD/YY" selected={this.state.CheckInDate} onChange={this.handleArrivalDateChange} />
-                    </span>
-                    <span className="col-lg-2 col-md-3 col-sm-4 col-xs-4 pad-bot-10">
-                        <DatePicker className="form-control form-control-lg" dateFormat="MM/DD/YY" selected={this.state.CheckOutDate} onChange={this.handleDepartureDateChange} />
-                    </span>
-                    <span className="col-lg-2 col-md-3 col-sm-4 col-xs-4 pad-bot-10">
-                        <input type="textbox" className="form-control form-control-lg" placeholder="2 guests" name="Guests" onChange={this.handleInputChange}></input>
-                    </span>
-                    <span className="col-lg-2 col-md-3 col-sm-12 col-xs-12 pad-bot-10">
-                        <a href="/display-properties" className="btn btn-primry btn-lg" style={{ width: "100%" }}>Search</a>
-                    </span>
                 </div>
                 <div className=" container property-display-content border">
                     <div className="row">
                         <div className="property-display-img-content col-6">
-                            <div id="myCarousel" className="carousel slide" data-ride="carousel">
-
-
-                                <ul className="carousel-indicators">
-                                    {carousalIndicator}
-                                </ul>
-
-                                <div className="carousel-inner">
-                                    {carousalBlock}
-                                </div>
-
-                                <a className="carousel-control-prev" href="#myCarousel" data-slide="prev">
-                                    <span className="carousel-control-prev-icon"></span>
-                                </a>
-                                <a className="carousel-control-next" href="#myCarousel" data-slide="next">
-                                    <span className="carousel-control-next-icon"></span>
-                                </a>
-                            </div>
+                           
                         </div>
                         <div className="property-display-pricing-content col-5 border">
                             <div className="display-price">
-                                <h4><strong>{this.state.propertyDetails.Price}</strong></h4><span> per night</span>
+                                <h4><strong>{this.state.Price}</strong></h4><span> per night</span>
                             </div>
                             <div>
                                 <table className="table table-bordered">
                                     <tbody>
                                         <tr>
-                                            <td><div>Arrive</div><div className="blue-text">{startDate}</div></td>
-                                            <td><div>Depart</div><div className="blue-text">{endDate}</div></td>
+                                            <td><div>Arrive</div><div className="blue-text">{StartDate}</div></td>
+                                            <td><div>Depart</div><div className="blue-text">{EndDate}</div></td>
                                         </tr>
                                         <tr>
-                                            <td colSpan="2"><div>Guests</div><div className="blue-text">{this.props.homeStateStore.result ? this.props.homeStateStore.result.guests : "2"} guests</div></td>
+                                            <td colSpan="2"><div>Guests</div><div className="blue-text">{this.state.Accomodates ? this.state.Accomodates : "2"} guests</div></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -332,7 +271,7 @@ class PropertyDisplay extends Component {
                                 <hr />
                                 <div className="center-content">
                                     <label htmlFor="ownername">Property Owner: </label>
-                                    <span id="ownername"><strong> {this.state.propertyDetails.EMail}</strong></span>
+                                    <span id="ownername"><strong> {this.state.Username}</strong></span>
                                 </div>
                                 <div>
                                     <div className="center-content">
@@ -367,9 +306,9 @@ class PropertyDisplay extends Component {
                     </div>
                     <div className="row">
                         <div className="property-display-details-content col-6">
-                            <div className="details-content-headline-text"><h4><strong>{this.state.propertyDetails.Title}</strong></h4></div>
+                            <div className="details-content-headline-text"><h4><strong>{this.state.Title}</strong></h4></div>
                             <div>
-                                <p>{this.state.propertyDetails.StreetAddress}, {this.state.propertyDetails.City} </p>
+                                <p>{this.state.propertyDetails.StreetAddr}, {this.state.City} </p>
                             </div>
                             <div className="details-table">
                                 <table className="table table-hover">
@@ -384,33 +323,33 @@ class PropertyDisplay extends Component {
                                         <tr>
                                             <th scope="row">1</th>
                                             <td>Property type</td>
-                                            <td>{this.state.propertyDetails.PropertyType}</td>
+                                            <td>{this.state.PropertyType}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">2</th>
                                             <td>Bedrooms</td>
-                                            <td>{this.state.propertyDetails.Bedrooms}</td>
+                                            <td>{this.state.Bedrooms}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">3</th>
                                             <td>Sleeps</td>
-                                            <td>{this.state.propertyDetails.Accomodates}</td>
+                                            <td>{this.state.Accomodates}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">4</th>
                                             <td>Bathrooms</td>
-                                            <td>{this.state.propertyDetails.Bathrooms}</td>
+                                            <td>{this.state.Bathrooms}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">5</th>
                                             <td>Min Stay</td>
-                                            <td>{this.state.propertyDetails.MinStay} nights</td>
+                                            <td>{this.state.MinStay} nights</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div className="property-description-content">
-                                <h3><strong>{this.state.propertyDetails.Bedrooms} bedroom {this.state.propertyDetails.Bathrooms} bath</strong></h3>
+                                <h3><strong>{this.state.Bedrooms} bedroom {this.state.Bathrooms} bath</strong></h3>
                                 <div className="desc-content">
                                     {this.state.propertyDetails.Description}
                                 </div>

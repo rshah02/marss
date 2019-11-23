@@ -17,6 +17,7 @@ class DisplayProperties extends Component {
         super(props);        
 
         this.state = {
+            isAuthenticated:localStorage.getItem("isAuthenticated"),
             arrivalDate: moment(),
             departureDate: moment(),
             Properties: [],
@@ -70,47 +71,7 @@ class DisplayProperties extends Component {
         //   })
         // })
 
-        var data1={
-            "prpoertyId":"121324244",
-            "username": "Apeksha",
-            "userid": "1234567",
-            "title": "New opening coming soon, yaaaaaayayayaayayya aaaaaaaaaaaaaaaaaaaaaaaaaaaas",
-            "description": "OPEN",
-            "street": "630 N San Pedro Street 100 1245555555",
-            "city": "San Jose",
-            "country": "USA",
-            "zip": "12345",
-            "bed": 22,
-            "bath": 2,
-            "accomodates": 4,
-            "currency": "$",
-            "price": 1000,
-            "minstay": 2,
-            "maxstay": 4,
-            "start": "9-20-2019",
-            "end": "9-22-2019",
-            "ptype": {
-                "pbed": false,
-                "whole": true,
-                "shared": false
-            },
-            "amenities": {
-                "ac": false,
-                "heater": false,
-                "tv": false,
-                "wifi": true
-            },
-            "spaces": {
-                "kitchen": false,
-                "closets": false,
-                "parking": false,
-                "gym": false,
-                "pool": false
-            },
-            "Image": "download4.jpeg"
-        }
-
-        axios.delete('http://54.152.110.9:8080/property/0218cd3c-563c-4879-7b79-d2903394a84a')
+        axios.get('https://33sf4cmc8a.execute-api.us-east-1.amazonaws.com/prod/property1/55a28239-1e4b-475a-a357-731bf79d3748')
         .then(response => {
              console.log(response.data);
              this.setState({
@@ -237,13 +198,13 @@ class DisplayProperties extends Component {
             redrirectVar = <Redirect to="/error" />
         }
 
-        let propertyList = this.state.PropertiesResult.map(function (property, index) {
+        let propertyList = this.state.Properties.map(function (property, index) {
             return (
                 <div className="container display-properties-container" key={index}>
                     <Link to={'/property-display/' + property.PropertyId}>
                         <div className="property-content row border">
                             <div className="property-content-image col-3">
-                                <img className="property-image" src={property.Photos} alt="property-image" />
+                                <img className="property-image" src={require('../../Static/Images/property.Image')}/>
                             </div>
                             <div className="property-content-desc col-9 hidden-xs">
                                 <div>
@@ -265,7 +226,7 @@ class DisplayProperties extends Component {
                 </div>
             )
         })
-
+ 
 
         return (
             <div>
@@ -310,14 +271,7 @@ class DisplayProperties extends Component {
                         </span>                        
                     </div>
 
-                    <div className="container center-content pad-top-20-pc">
-                        <div>
-                            Use of this Web site constitutes acceptance of the HomeAway.com Terms and conditions and Privacy policy.
-                    </div>
-                        <div>
-                            ©2018 HomeAway. All rights reserved
-                    </div>
-                    </div>
+                  
                 </div>
             </div>
         )

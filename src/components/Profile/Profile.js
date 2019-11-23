@@ -26,26 +26,47 @@ class Profile extends Component {
      }
 
     async componentDidMount() {
-       
-        this.setState({
-            FirstName:localStorage.getItem("FirstName"),
-            LastName:localStorage.getItem("LastName"),
-            UserId:localStorage.getItem("UserId"),
-            Photo:"",
-            ProfileId:""
-                         
+        // await this.props.getProfileDetails();
+        var UserId=localStorage.getItem("UserId")
+        await axios.get('https://sjgt1h8u4g.execute-api.us-east-1.amazonaws.com/prod/profile'+UserId)
+        .then((response) => {
+           
+            const result =response.data;
+            console.log(result)
+            this.setState({
+                FirstName:result.FirstName,
+                LastName:result.LastName,
+                UserId:result.UserId,
+                Photo:"",
+                ProfileId:result.ProfileId,
+                City:result.City,
+                Description:result.Description,
+                Gender:result.Gender,
+                Email:result.Email,
+                Languages:result.Languages,
+                Photo:result.Photo
+                             
+            })
         })
-        //     var UserId=localStorage.getItem("UserId")
-        //     let data={UserId:UserId}
-        // axios.get('http://54.85.105.69:3000/profile')
-        // .then(response => {
-        //     if (response.status === 200) {
-        //         console.log(response.data);
-                
-        //     }
-        // }).catch((err)=>{
-        //     console.log(err);
-        // })
+        .catch((err)=>{
+            this.setState({
+                FirstName:localStorage.getItem("FirstName"),
+                LastName:localStorage.getItem("LastName"),
+                UserId:localStorage.getItem("UserId"),
+                Photo:"",
+                ProfileId:"",
+                City:"",
+                Description:"",
+                Gender:"",
+                Email:localStorage.getItem("Email"),
+                Languages:"",
+                Photo:""
+                             
+            })
+            
+             
+        });
+       
         console.log('state', this.state);
     }
 
@@ -141,8 +162,7 @@ class Profile extends Component {
                 <div className="container">
                     {redrirectVar}
                     <div className="center-content profile-heading">
-                        {profileImageData}
-                        <h3>{this.state.FirstName} {this.state.LastName}</h3>
+                       
                         <p></p>
                     </div>
                     <div className="container profile-content">
